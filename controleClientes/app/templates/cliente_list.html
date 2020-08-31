@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block titulo %}
+Listagem de Clientes
+{% endblock %}
+
+{% block conteudo %}
+
+<form method="get">
+    <input type="text" name="busca" placeholder="Buscar Cliente">
+    <button type="submit" class="btn btn-primary">
+    Buscar
+</button>
+</form>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Telefone</th>
+        <th>Nome</th>
+        <th>Endereço</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{cliente.telefone}}</td>
+            <td>{{cliente.nome}}</td>
+            <td>
+              <table class="responsive-table striped">
+                <tr>
+                  <td>{{cliente.logradouro}}</td>
+                  <td>{{cliente.numero}}</td>
+                  <td>{{cliente.bairro}}</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <a href="{% url 'editar_cliente' pk=cliente.pk %}">
+                <i class="material-icons">mode_edit</i>
+              </a>
+              <a href="{% url 'remover_cliente' pk=cliente.pk %}">
+               <i class="material-icons">delete</i>
+              </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    <br/>
+    <br/>
+    <a href="{% url 'cadastrar_cliente' %}"><button class="btn btn-primary">Cadastrar Cliente</button></a>
+{% endblock %}
